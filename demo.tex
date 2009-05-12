@@ -1,0 +1,46 @@
+
+% todo: COPYING
+% todo: off by one
+% todo: merging images?
+
+\documentclass{article}
+\usepackage[left=.5in,top=1cm,right=.5in,nohead,nofoot]{geometry}
+\usepackage{forloop}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\begin{document}
+
+\setlength{\parindent}{0in}
+\newcounter{ct}
+%% \newcommand{\tokenblock}[2] {
+%%   \setcounter{ct}{0} 
+%%   \forloop{ct}{0}{\value{ct} < #1} 
+%%           {\setlength\fboxsep{0pt}
+%%             \setlength\fboxrule{2.5pt}\hspace{0pt}\vspace{-0.4pt}
+%%             \fbox{
+%%               \includegraphics[width=1in,height=1in]{#2}}
+%%             \ifthenelse{\equal{6}{\value{ct}}}{\\*}{\hspace{-8pt}}}}
+
+
+\setlength{\arrayrulewidth}{3pt}
+\newcommand{\tokenblock}[2] {
+  \setcounter{ct}{-2}
+  %\begin{tabular}{|c|c|c|c|c|c|c|}
+  \begin{tabular}{|@{}c@{}|@{}c@{}|@{}c@{}|@{}c@{}|@{}c@{}|@{}c@{}|@{}c@{}|}
+    \hline
+    \forloop{ct}{1}{\value{ct} < #1} 
+            {
+              \includegraphics[width=1in,height=1in]{#2} 
+              \ifthenelse{\equal{6}{\value{ct}}}{\\ \hline}{&}}
+\\ \hline
+\end{tabular}}
+
+%puffin-md.png
+\tokenblock{2}{puffin-md.png} % FIXME: off by one
+
+\vspace{1cm}
+
+\tokenblock{5}{puffin-md.png}
+
+
+\end{document}
